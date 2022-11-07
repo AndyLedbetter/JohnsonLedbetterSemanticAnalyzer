@@ -1,0 +1,6 @@
+Not sure on Not
+Not sure on Parenthesis
+Not sure on less, greater, equals, AND, OR
+How to stop strings
+How to get/set function parameters for function
+What else need to do?
