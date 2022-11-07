@@ -4,121 +4,137 @@ Package CS426;
 // Helpers are sets that let you talk about multiple characters in the same way
 Helpers
 	whitespaces = ' ' | 9 | 10 | 13;
-	natural = ['1'..'9'];
+	natural = ['1' .. '9'];
 	whole = ['0' + natural];
-	letters = [['a'..'z'] + ['A'..'Z']];
+	letter = [['a' .. 'z'] + ['A' .. 'Z']];
+	underscore = '_';
+	comma = ',';
+	quote = '"';
+	new_line = 10;
+	cr = 13; //carraige return
+	all_newline = [new_line + cr];
+	any_char = [0 .. 0xffff]; //All characters
+	word_char = [[[any_char - '"'] - '\'] - all_newline];
 
 // PEX 1 - Lexer Portion
 Tokens
+
+	//Operations
 	assign = '=';
 	plus = '+';
+	multiply = '*';
 	minus = '-';
-	// negation = '-'(natural whole*); //Professor said not to worry about negation rn
-	mult = '*';
-	division = '/';
-	exponent = '^';
-	and = '&&';
-	or = '||';
-	nottoken = '!=';
-	equivalence = '==';
-	greater = '>';
-	less = '<';
-	greaterequal = '>=';
-	lessequal = '<=';
-	eol = ';';
-	openparanthesis = '(';
-	closeparanthesis = ')';
-	openbracket = '[';
-	closebracket = ']';
-	opencurly = '{';
-	closecurly = '}';
+	divide = '/';
+	and = 'AND';
+	or = 'OR';
+	not = 'NOT';
+	equals = '==';
+	not_equals = '!=';
+	lessthan = '<';
+	greaterthan = '>';
+	lessthanorequals = '<=';
+	greaterthanorequals = '>=';
 	comma = ',';
-
+	dot = '.';
+	openp = '(';
+	closep = ')';
+	quote = '"';
 	underscore = '_';
-
-	//Types
-	inttype = '$int';
-	constint = '$const int';
-
-	floattype = '$float';
-	constfloat = '$const float';
-
-	chartype = '$char';
-	constchar = '$const char';
+	eol = ';';
+	
+	//Keywords
+	define = 'def'; //define
+	if = 'if'; //if
+	else = 'else'; //else
+	while = 'while'; //while (as long as)
+	constant = 'const'; //constant
+	main = 'CODE'; //main
+	
+	// Literals
+	num = '0' | natural whole*; //integer
+	fp = whole* '.' whole* (('e' | 'E') natural whole*)?; //floating point
+	s = quote (word_char* | ('\' ('\' | '"')))* quote; //string
 
 	//Identifiers
-	id = (letters+)('_'?)(whole*);
+	id = underscore? letter+ underscore? letter* whole*;
 
-	//Comments
-	comment = '//' ([[0..0xffff] - [10+13]])*;
-
-	//Literals
-	integer = '0' | (natural whole*);
-	float = (whole*)('.')(whole*)(('e') natural whole*)?;
-	string = ('"')(letters* '/"'* ' '*)*('"');
-
-	//Conditional
-	if = '$if';
-	else = '$else';
-
-	//Iterativee
-	while = '$while';
-
-	//Function
-	function = '$function';
-
-	//Main
-	main = '$main';
+	// Comments
+	comment = '--' ([[0..0xffff] - [10 + 13]])*;
 
 	// Whitespace
 	blank = whitespaces+;
 
 Ignored Tokens
-	blank, comment;
+	blank,  comment;
 
 
 // PEX 2 - Parser Portion
 Productions
-	program = statements main_function;
+
+	program = constants functions main_function;
+
+	//Constants
+
+	constants = {multiple} one_constant constants | {none};
+	
+	one_constant = {integer} constant id num eol | {floats} constant id fp eol; //declare constants
+
+	//Functions
+
+	functions = {multiple} function functions | {none};
+
+	function = define id [oone]:openp function_params [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
+
+	function_params = {multiple} arguements comma function_params | {single} arguements | {none};
+
+	arguements = {dec} [type]:id [varname]:id | {integer} num | {floating_point} fp | {string} s;
+
+	//Main
+
+	main_function = main openp statements closep eol;
+
+	//Statements
 
 	statements = {multiple} statement statements | {single} statement;
-	statement = {assignment} assign_statement | {declaration} declare_statement | {call} function_call_statement | {define} function_define_statement | {constant} constant_declaration | {if} if_else_conditional | {while} while_loop;
 
-	main_function = main openparanthesis closeparanthesis opencurly statements closecurly;
+	statement = {declaration} declare_statement | {assignment} assign_statement | {call} function_call_statement | {if_else} elif_state | {while} while_state;
 
-	function_call_statement = id openparanthesis parameters closeparanthesis eol;
+	assign_statement = id assign expression eol;
 
-	function_define_statement = function id openparanthesis define_parameters closeparanthesis opencurly statements closecurly;
+	declare_statement = [type]:id [varname]:id eol;
+
+	function_call_statement = id openp parameters closep eol;
+
+	function_declare_statement = function id [oone]:openp define_parameters [cone]:closep [otwo]:openp statements [ctwo]:closep;
 	define_parameters = {multiple} define_parameter comma define_parameters | {single} define_parameter | {no_parameters};
-	define_parameter = {int} inttype id | {float} floattype id | {char} chartype openbracket integer closebracket id;
+	define_parameter = {int} num id | {float} fp id | {string} s id;
+	
+	elif_state = {just_if} if_state | {if_else} if_state else_state;
 
-	declare_statement = {int_and_float_declare} type_id id eol | {char_declare} type_id id openbracket integer closebracket eol;
-	type_id = {int} inttype | {float} floattype | {char} chartype;
+	if_state = if [oone]:openp parameters [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
 
-	constant_declaration = {int_and_float_declare} const_type_id assign_statement | {char_declare} const_type_id id openbracket integer closebracket assign string eol;
-	const_type_id = {int} constint | {float} constfloat | {char} constchar;
+	else_state = else openp statements closep eol;
 
-	parameters = {multiple} parameter comma parameters | {single} parameter | {no_parameter} ;
-	parameter = operand;
+	while_state = while [oone]:openp parameters [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
 
-	if_else_conditional = if conditionals [ifopen]:opencurly [ifstatements]:statements [ifclose]:closecurly else [elseopen]:opencurly [elsestatements]:statements [elseclose]:closecurly;
-	while_loop = while conditionals opencurly statements closecurly;
-	conditionals = {multiple} openparanthesis conditional boolean_token conditionals closeparanthesis| {single} conditional;
-	conditional = openparanthesis [var1]:operand conditional_token [var2]:operand closeparanthesis;
-	conditional_token = {equal} equivalence |{not} nottoken | {greater} greater | {less} less | {greater_or_equal} greaterequal | {less_or_equal} lessequal;
-	boolean_token = {andtoken} and | {ortoken} or;
-	assign_statement = {int_and_float_assign} id assign expression eol | {string_assign} id assign string eol;
+	parameters = expression;
 
-	expression = {logicalor} expression or expression2 | {pass} expression2;
-	expression2 = {logicaland} expression2 and expression3 | {pass} expression3;
-	expression3 = {equal} expression3 equivalence expression4 | {notequal} expression3 nottoken expression4 | {pass} expression4;
-	expression4 = {lessthan} expression4 less expression5 | {greaterthan} expression4 greater expression5 | {pass} expression5;
-	expression5 = {add} expression5 plus expression6 | {pass} expression6;
-	expression6 = {minus} expression6 minus expression7 | {pass} expression7;
-	expression7 = {multiply} expression7 mult expression8 | {pass} expression8;
-	expression8 = {division} expression8 division expression9 | {pass} expression9;
-	expression9 = {exponential} expression9 exponent expression10 | {pass} expression10;
-	expression10 = {paranthesis} openparanthesis expression closeparanthesis | {pass} expression11;
-	expression11 = {negative} minus operand | {pass} operand;
-	operand = {int} integer | {float} float | {variable} id;
+	//Expressions
 
+	expression = {or} expression or expression1 | {pass} expression1;
+
+	expression1 = {and} expression1 and expression2 | {pass} expression2;
+
+	expression2 = {equals} expression2 equals expression3 | {not_equal} expression2 not_equals expression3 | {pass} expression3;
+
+	expression3 = {greater_than_or_equals} expression3 greaterthanorequals expression4 | {less_than_or_equals} expression3 lessthanorequals expression4 | {less_than} expression3 lessthan expression4 | {greater_than} expression3 greaterthan expression4 | {pass} expression4;
+
+	expression4 = {add} expression4 plus expression5 | {subtract} expression4 minus expression5 | {pass} expression5;
+
+	expression5 = {multiply} expression5 multiply expression6 | {divide} expression5 divide expression6 | {pass} expression6;
+
+	expression6 = {negative} minus expression7 | {not} not expression7 | {pass} expression7;
+
+	expression7 = {parenthesis} openp expression closep | {pass} operand;
+
+	operand = {int} num | {float} fp | {string} s | {variable} id;

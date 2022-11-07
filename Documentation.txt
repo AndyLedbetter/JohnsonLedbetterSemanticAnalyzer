@@ -1,0 +1,18 @@
+PEX 1 DOCUMENTATION:
+
+I received help from C1C Joeseph Daniel on this part on the pex. He showed me how to include whitespaces in strings.
+We also checked each other's test files to see that they are correct. I did not receive any other help on this assignment.
+
+
+PEX 2 DOCUMENTATION:
+
+I did not receive any help on this assignment. I did have to ask C1C Andy Ledbetter for help on creating
+a correct float token (ex. 10.0e8), but he did not not assist me on any PEX 2 material.
+
+PEX 3 DOCUMENTATION:
+
+
+
+PEX 4 DOCUMENTATION:
+
+

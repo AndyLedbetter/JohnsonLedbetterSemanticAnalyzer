@@ -1,0 +1,105 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{C65D50AC-7ACE-4FA0-BB65-7D9F82A12181}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ConsoleApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>PEX1</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="analysis.cs" />
+    <Compile Include="Definition.cs" />
+    <Compile Include="SemanticAnalyzer.cs" />
+    <Compile Include="lexer.cs" />
+    <Compile Include="nodes.cs" />
+    <Compile Include="parser.cs" />
+    <Compile Include="prods.cs" />
+    <Compile Include="parser_main.cs" />
+    <Compile Include="tokens.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Documentation.txt" />
+    <Content Include="doxygen.css" />
+    <Content Include="PEX_LANGUAGE.txt" />
+    <Content Include="pex_test_results.txt" />
+    <Content Include="testcases\pex1\chartype_correct_1.txt" />
+    <Content Include="testcases\pex1\chartype_incorrect_1.txt" />
+    <Content Include="testcases\pex1\comments_correct_1.txt" />
+    <Content Include="testcases\pex1\comments_incorrect_1.txt" />
+    <Content Include="testcases\pex1\else_correct_1.txt" />
+    <Content Include="testcases\pex1\else_incorrect_1.txt" />
+    <Content Include="testcases\pex1\floattype_correct_1.txt" />
+    <Content Include="testcases\pex1\floattype_incorrect_1.txt" />
+    <Content Include="testcases\pex1\float_correct_1.txt" />
+    <Content Include="testcases\pex1\float_incorrect_1.txt" />
+    <Content Include="testcases\pex1\functions_correct_1.txt" />
+    <Content Include="testcases\pex1\functions_incorrect_1.txt" />
+    <Content Include="testcases\pex1\identifiers_correct_1.txt" />
+    <Content Include="testcases\pex1\identifiers_incorrect_1.txt" />
+    <Content Include="testcases\pex1\if_correct_1.txt" />
+    <Content Include="testcases\pex1\if_incorrect_1.txt" />
+    <Content Include="testcases\pex1\integers_correct_1.txt" />
+    <Content Include="testcases\pex1\integers_incorrect_1.txt" />
+    <Content Include="testcases\pex1\inttype_correct_1.txt" />
+    <Content Include="testcases\pex1\inttype_incorrect_1.txt" />
+    <Content Include="testcases\pex1\main_correct_1.txt" />
+    <Content Include="testcases\pex1\main_incorrect_1.txt" />
+    <Content Include="testcases\pex1\string_correct_1.txt" />
+    <Content Include="testcases\pex1\string_incorrect_1.txt" />
+    <Content Include="testcases\pex1\tokens_correct_1.txt" />
+    <Content Include="testcases\pex1\tokens_incorrect_1.txt" />
+    <Content Include="testcases\pex1\while_correct_1.txt" />
+    <Content Include="testcases\pex1\while_incorrect_1.txt" />
+    <Content Include="testcases\pex2\test1.txt" />
+    <Content Include="testcases\pex3\saTest.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile.dotgnu" />
+    <None Include="Makefile.mono" />
+    <None Include="PEX_BUILD.bat" />
+    <None Include="PEX_TEST.bat" />
+    <None Include="README.parser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="testcases\pex4\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
