@@ -83,11 +83,11 @@ Productions
 
 	functions = {multiple} function functions | {none};
 
-	function = define id [oone]:openp function_params [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
+	function = define id [oone]:openp function_arguments [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
 
-	function_params = {multiple} arguements comma function_params | {single} arguements | {none};
+	function_arguments = {multiple} arguement comma function_arguments | {single} arguement | {none};
 
-	arguements = {dec} [type]:id [varname]:id | {integer} num | {floating_point} fp | {string} s;
+	arguement = {dec} [type]:id [varname]:id;
 
 	//Main
 
@@ -111,13 +111,16 @@ Productions
 	
 	elif_state = {just_if} if_state | {if_else} if_state else_state;
 
-	if_state = if [oone]:openp parameters [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
+	if_state = if [oone]:openp conditional [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
 
 	else_state = else openp statements closep eol;
 
-	while_state = while [oone]:openp parameters [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
+	while_state = while [oone]:openp conditional [cone]:closep [otwo]:openp statements [ctwo]:closep eol;
 
-	parameters = expression;
+	parameters = {multiple} parameter comma parameters | {single} parameter | {no_parameter};
+	parameter = expression;
+
+	conditional = {single} expression | {no_conditional};
 
 	//Expressions
 

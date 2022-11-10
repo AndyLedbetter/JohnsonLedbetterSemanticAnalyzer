@@ -7,7 +7,7 @@ namespace CS426.analysis
 {
     public abstract class Definition
     {
-        public string name;
+        public string name = "";
         public string toString()
         {
             return name;
@@ -24,7 +24,7 @@ namespace CS426.analysis
 
     public class FunctionDefinition : Definition
     {
-        public List<VariableDefinition> parameters;
+        public List<VariableDefinition> parameters = new List<VariableDefinition>();
     }
 
 

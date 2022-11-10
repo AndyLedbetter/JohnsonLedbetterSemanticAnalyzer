@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments>../../testcases/pex3/saTest.txt</StartArguments>
+    <StartArguments>../../testcases/pex3/"FunctionCallTest.txt"</StartArguments>
     <StartWorkingDirectory>C:\Users\C23Price.Johnson\Desktop\CS426\PEX_New\PEX Starter Pack\bin\Debug\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup>

@@ -12,36 +12,44 @@ echo PEX TEST CASES (C1C Unnamed) >> %file%
 :: ----------------------------------------
 :: GOOD EXAMPLES
 :: ----------------------------------------
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\assignVariableCorrect.txt >> %file%
+echo Assign Statement>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\AssignStatementTest.txt >> %file%
 echo. >> %file%
 
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\ConditionalsCorrect.txt >> %file%
+echo Boolean Statement>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\BooleanStatementTest.txt >> %file%
 echo. >> %file%
 
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\declareFunctionTestCorrect.txt >> %file%
+echo Constants>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\ConstantTest.txt >> %file%
 echo. >> %file%
 
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\declareVariableCorrect.txt >> %file%
+echo Declare Statement>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\DeclareStatementTest.txt >> %file%
 echo. >> %file%
 
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\functionsCallCorrect.txt >> %file%
+echo FunctionCall Statement>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\FunctionCallStatementTest.txt >> %file%
 echo. >> %file%
 
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\iterativeCorrect.txt >> %file%
+echo Function Test>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\FunctionTest.txt >> %file%
 echo. >> %file%
 
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\OrderOfOperationsCorrect.txt >> %file%
+echo iff elsee>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\IfElseTest.txt >> %file%
 echo. >> %file%
 
-echo Testing Correct assign variables>> %file%
-bin\Debug\ConsoleApplication.exe testcases\pex2\extraTestFileCorrect.txt >> %file%
+echo Main Test>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\MainTest.txt >> %file%
+echo. >> %file%
+
+echo Not Test>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\NotTest.txt >> %file%
+echo. >> %file%
+
+echo While Test>> %file%
+bin\Debug\ConsoleApplication.exe testcases\pex3\WhileTest.txt >> %file%
 echo. >> %file%
 
 pause

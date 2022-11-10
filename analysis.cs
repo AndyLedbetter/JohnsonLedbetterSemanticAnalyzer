@@ -23,13 +23,10 @@ public interface Analysis : Switch
     void CaseAMultipleFunctions(AMultipleFunctions node);
     void CaseANoneFunctions(ANoneFunctions node);
     void CaseAFunction(AFunction node);
-    void CaseAMultipleFunctionParams(AMultipleFunctionParams node);
-    void CaseASingleFunctionParams(ASingleFunctionParams node);
-    void CaseANoneFunctionParams(ANoneFunctionParams node);
-    void CaseADecArguements(ADecArguements node);
-    void CaseAIntegerArguements(AIntegerArguements node);
-    void CaseAFloatingPointArguements(AFloatingPointArguements node);
-    void CaseAStringArguements(AStringArguements node);
+    void CaseAMultipleFunctionArguments(AMultipleFunctionArguments node);
+    void CaseASingleFunctionArguments(ASingleFunctionArguments node);
+    void CaseANoneFunctionArguments(ANoneFunctionArguments node);
+    void CaseADecArguement(ADecArguement node);
     void CaseAMainFunction(AMainFunction node);
     void CaseAMultipleStatements(AMultipleStatements node);
     void CaseASingleStatements(ASingleStatements node);
@@ -53,7 +50,12 @@ public interface Analysis : Switch
     void CaseAIfState(AIfState node);
     void CaseAElseState(AElseState node);
     void CaseAWhileState(AWhileState node);
-    void CaseAParameters(AParameters node);
+    void CaseAMultipleParameters(AMultipleParameters node);
+    void CaseASingleParameters(ASingleParameters node);
+    void CaseANoParameterParameters(ANoParameterParameters node);
+    void CaseAParameter(AParameter node);
+    void CaseASingleConditional(ASingleConditional node);
+    void CaseANoConditionalConditional(ANoConditionalConditional node);
     void CaseAOrExpression(AOrExpression node);
     void CaseAPassExpression(APassExpression node);
     void CaseAAndExpression1(AAndExpression1 node);
@@ -213,31 +215,19 @@ public class AnalysisAdapter : Analysis
     {
         DefaultCase(node);
     }
-    public virtual void CaseAMultipleFunctionParams(AMultipleFunctionParams node)
+    public virtual void CaseAMultipleFunctionArguments(AMultipleFunctionArguments node)
     {
         DefaultCase(node);
     }
-    public virtual void CaseASingleFunctionParams(ASingleFunctionParams node)
+    public virtual void CaseASingleFunctionArguments(ASingleFunctionArguments node)
     {
         DefaultCase(node);
     }
-    public virtual void CaseANoneFunctionParams(ANoneFunctionParams node)
+    public virtual void CaseANoneFunctionArguments(ANoneFunctionArguments node)
     {
         DefaultCase(node);
     }
-    public virtual void CaseADecArguements(ADecArguements node)
-    {
-        DefaultCase(node);
-    }
-    public virtual void CaseAIntegerArguements(AIntegerArguements node)
-    {
-        DefaultCase(node);
-    }
-    public virtual void CaseAFloatingPointArguements(AFloatingPointArguements node)
-    {
-        DefaultCase(node);
-    }
-    public virtual void CaseAStringArguements(AStringArguements node)
+    public virtual void CaseADecArguement(ADecArguement node)
     {
         DefaultCase(node);
     }
@@ -333,7 +323,27 @@ public class AnalysisAdapter : Analysis
     {
         DefaultCase(node);
     }
-    public virtual void CaseAParameters(AParameters node)
+    public virtual void CaseAMultipleParameters(AMultipleParameters node)
+    {
+        DefaultCase(node);
+    }
+    public virtual void CaseASingleParameters(ASingleParameters node)
+    {
+        DefaultCase(node);
+    }
+    public virtual void CaseANoParameterParameters(ANoParameterParameters node)
+    {
+        DefaultCase(node);
+    }
+    public virtual void CaseAParameter(AParameter node)
+    {
+        DefaultCase(node);
+    }
+    public virtual void CaseASingleConditional(ASingleConditional node)
+    {
+        DefaultCase(node);
+    }
+    public virtual void CaseANoConditionalConditional(ANoConditionalConditional node)
     {
         DefaultCase(node);
     }
@@ -808,9 +818,9 @@ public class DepthFirstAdapter : AnalysisAdapter
         {
             node.GetOone().Apply(this);
         }
-        if(node.GetFunctionParams() != null)
+        if(node.GetFunctionArguments() != null)
         {
-            node.GetFunctionParams().Apply(this);
+            node.GetFunctionArguments().Apply(this);
         }
         if(node.GetCone() != null)
         {
@@ -834,80 +844,80 @@ public class DepthFirstAdapter : AnalysisAdapter
         }
         OutAFunction(node);
     }
-    public virtual void InAMultipleFunctionParams(AMultipleFunctionParams node)
+    public virtual void InAMultipleFunctionArguments(AMultipleFunctionArguments node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutAMultipleFunctionParams(AMultipleFunctionParams node)
+    public virtual void OutAMultipleFunctionArguments(AMultipleFunctionArguments node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseAMultipleFunctionParams(AMultipleFunctionParams node)
+    public override void CaseAMultipleFunctionArguments(AMultipleFunctionArguments node)
     {
-        InAMultipleFunctionParams(node);
-        if(node.GetArguements() != null)
+        InAMultipleFunctionArguments(node);
+        if(node.GetArguement() != null)
         {
-            node.GetArguements().Apply(this);
+            node.GetArguement().Apply(this);
         }
         if(node.GetComma() != null)
         {
             node.GetComma().Apply(this);
         }
-        if(node.GetFunctionParams() != null)
+        if(node.GetFunctionArguments() != null)
         {
-            node.GetFunctionParams().Apply(this);
+            node.GetFunctionArguments().Apply(this);
         }
-        OutAMultipleFunctionParams(node);
+        OutAMultipleFunctionArguments(node);
     }
-    public virtual void InASingleFunctionParams(ASingleFunctionParams node)
+    public virtual void InASingleFunctionArguments(ASingleFunctionArguments node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutASingleFunctionParams(ASingleFunctionParams node)
+    public virtual void OutASingleFunctionArguments(ASingleFunctionArguments node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseASingleFunctionParams(ASingleFunctionParams node)
+    public override void CaseASingleFunctionArguments(ASingleFunctionArguments node)
     {
-        InASingleFunctionParams(node);
-        if(node.GetArguements() != null)
+        InASingleFunctionArguments(node);
+        if(node.GetArguement() != null)
         {
-            node.GetArguements().Apply(this);
+            node.GetArguement().Apply(this);
         }
-        OutASingleFunctionParams(node);
+        OutASingleFunctionArguments(node);
     }
-    public virtual void InANoneFunctionParams(ANoneFunctionParams node)
+    public virtual void InANoneFunctionArguments(ANoneFunctionArguments node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutANoneFunctionParams(ANoneFunctionParams node)
+    public virtual void OutANoneFunctionArguments(ANoneFunctionArguments node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseANoneFunctionParams(ANoneFunctionParams node)
+    public override void CaseANoneFunctionArguments(ANoneFunctionArguments node)
     {
-        InANoneFunctionParams(node);
-        OutANoneFunctionParams(node);
+        InANoneFunctionArguments(node);
+        OutANoneFunctionArguments(node);
     }
-    public virtual void InADecArguements(ADecArguements node)
+    public virtual void InADecArguement(ADecArguement node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutADecArguements(ADecArguements node)
+    public virtual void OutADecArguement(ADecArguement node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseADecArguements(ADecArguements node)
+    public override void CaseADecArguement(ADecArguement node)
     {
-        InADecArguements(node);
+        InADecArguement(node);
         if(node.GetType() != null)
         {
             node.GetType().Apply(this);
@@ -916,64 +926,7 @@ public class DepthFirstAdapter : AnalysisAdapter
         {
             node.GetVarname().Apply(this);
         }
-        OutADecArguements(node);
-    }
-    public virtual void InAIntegerArguements(AIntegerArguements node)
-    {
-        DefaultIn(node);
-    }
-
-    public virtual void OutAIntegerArguements(AIntegerArguements node)
-    {
-        DefaultOut(node);
-    }
-
-    public override void CaseAIntegerArguements(AIntegerArguements node)
-    {
-        InAIntegerArguements(node);
-        if(node.GetNum() != null)
-        {
-            node.GetNum().Apply(this);
-        }
-        OutAIntegerArguements(node);
-    }
-    public virtual void InAFloatingPointArguements(AFloatingPointArguements node)
-    {
-        DefaultIn(node);
-    }
-
-    public virtual void OutAFloatingPointArguements(AFloatingPointArguements node)
-    {
-        DefaultOut(node);
-    }
-
-    public override void CaseAFloatingPointArguements(AFloatingPointArguements node)
-    {
-        InAFloatingPointArguements(node);
-        if(node.GetFp() != null)
-        {
-            node.GetFp().Apply(this);
-        }
-        OutAFloatingPointArguements(node);
-    }
-    public virtual void InAStringArguements(AStringArguements node)
-    {
-        DefaultIn(node);
-    }
-
-    public virtual void OutAStringArguements(AStringArguements node)
-    {
-        DefaultOut(node);
-    }
-
-    public override void CaseAStringArguements(AStringArguements node)
-    {
-        InAStringArguements(node);
-        if(node.GetS() != null)
-        {
-            node.GetS().Apply(this);
-        }
-        OutAStringArguements(node);
+        OutADecArguement(node);
     }
     public virtual void InAMainFunction(AMainFunction node)
     {
@@ -1480,9 +1433,9 @@ public class DepthFirstAdapter : AnalysisAdapter
         {
             node.GetOone().Apply(this);
         }
-        if(node.GetParameters() != null)
+        if(node.GetConditional() != null)
         {
-            node.GetParameters().Apply(this);
+            node.GetConditional().Apply(this);
         }
         if(node.GetCone() != null)
         {
@@ -1562,9 +1515,9 @@ public class DepthFirstAdapter : AnalysisAdapter
         {
             node.GetOone().Apply(this);
         }
-        if(node.GetParameters() != null)
+        if(node.GetConditional() != null)
         {
-            node.GetParameters().Apply(this);
+            node.GetConditional().Apply(this);
         }
         if(node.GetCone() != null)
         {
@@ -1588,24 +1541,119 @@ public class DepthFirstAdapter : AnalysisAdapter
         }
         OutAWhileState(node);
     }
-    public virtual void InAParameters(AParameters node)
+    public virtual void InAMultipleParameters(AMultipleParameters node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutAParameters(AParameters node)
+    public virtual void OutAMultipleParameters(AMultipleParameters node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseAParameters(AParameters node)
+    public override void CaseAMultipleParameters(AMultipleParameters node)
     {
-        InAParameters(node);
+        InAMultipleParameters(node);
+        if(node.GetParameter() != null)
+        {
+            node.GetParameter().Apply(this);
+        }
+        if(node.GetComma() != null)
+        {
+            node.GetComma().Apply(this);
+        }
+        if(node.GetParameters() != null)
+        {
+            node.GetParameters().Apply(this);
+        }
+        OutAMultipleParameters(node);
+    }
+    public virtual void InASingleParameters(ASingleParameters node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutASingleParameters(ASingleParameters node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseASingleParameters(ASingleParameters node)
+    {
+        InASingleParameters(node);
+        if(node.GetParameter() != null)
+        {
+            node.GetParameter().Apply(this);
+        }
+        OutASingleParameters(node);
+    }
+    public virtual void InANoParameterParameters(ANoParameterParameters node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutANoParameterParameters(ANoParameterParameters node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseANoParameterParameters(ANoParameterParameters node)
+    {
+        InANoParameterParameters(node);
+        OutANoParameterParameters(node);
+    }
+    public virtual void InAParameter(AParameter node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutAParameter(AParameter node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseAParameter(AParameter node)
+    {
+        InAParameter(node);
         if(node.GetExpression() != null)
         {
             node.GetExpression().Apply(this);
         }
-        OutAParameters(node);
+        OutAParameter(node);
+    }
+    public virtual void InASingleConditional(ASingleConditional node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutASingleConditional(ASingleConditional node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseASingleConditional(ASingleConditional node)
+    {
+        InASingleConditional(node);
+        if(node.GetExpression() != null)
+        {
+            node.GetExpression().Apply(this);
+        }
+        OutASingleConditional(node);
+    }
+    public virtual void InANoConditionalConditional(ANoConditionalConditional node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutANoConditionalConditional(ANoConditionalConditional node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseANoConditionalConditional(ANoConditionalConditional node)
+    {
+        InANoConditionalConditional(node);
+        OutANoConditionalConditional(node);
     }
     public virtual void InAOrExpression(AOrExpression node)
     {
@@ -2461,9 +2509,9 @@ public class ReversedDepthFirstAdapter : AnalysisAdapter
         {
             node.GetCone().Apply(this);
         }
-        if(node.GetFunctionParams() != null)
+        if(node.GetFunctionArguments() != null)
         {
-            node.GetFunctionParams().Apply(this);
+            node.GetFunctionArguments().Apply(this);
         }
         if(node.GetOone() != null)
         {
@@ -2479,80 +2527,80 @@ public class ReversedDepthFirstAdapter : AnalysisAdapter
         }
         OutAFunction(node);
     }
-    public virtual void InAMultipleFunctionParams(AMultipleFunctionParams node)
+    public virtual void InAMultipleFunctionArguments(AMultipleFunctionArguments node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutAMultipleFunctionParams(AMultipleFunctionParams node)
+    public virtual void OutAMultipleFunctionArguments(AMultipleFunctionArguments node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseAMultipleFunctionParams(AMultipleFunctionParams node)
+    public override void CaseAMultipleFunctionArguments(AMultipleFunctionArguments node)
     {
-        InAMultipleFunctionParams(node);
-        if(node.GetFunctionParams() != null)
+        InAMultipleFunctionArguments(node);
+        if(node.GetFunctionArguments() != null)
         {
-            node.GetFunctionParams().Apply(this);
+            node.GetFunctionArguments().Apply(this);
         }
         if(node.GetComma() != null)
         {
             node.GetComma().Apply(this);
         }
-        if(node.GetArguements() != null)
+        if(node.GetArguement() != null)
         {
-            node.GetArguements().Apply(this);
+            node.GetArguement().Apply(this);
         }
-        OutAMultipleFunctionParams(node);
+        OutAMultipleFunctionArguments(node);
     }
-    public virtual void InASingleFunctionParams(ASingleFunctionParams node)
+    public virtual void InASingleFunctionArguments(ASingleFunctionArguments node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutASingleFunctionParams(ASingleFunctionParams node)
+    public virtual void OutASingleFunctionArguments(ASingleFunctionArguments node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseASingleFunctionParams(ASingleFunctionParams node)
+    public override void CaseASingleFunctionArguments(ASingleFunctionArguments node)
     {
-        InASingleFunctionParams(node);
-        if(node.GetArguements() != null)
+        InASingleFunctionArguments(node);
+        if(node.GetArguement() != null)
         {
-            node.GetArguements().Apply(this);
+            node.GetArguement().Apply(this);
         }
-        OutASingleFunctionParams(node);
+        OutASingleFunctionArguments(node);
     }
-    public virtual void InANoneFunctionParams(ANoneFunctionParams node)
+    public virtual void InANoneFunctionArguments(ANoneFunctionArguments node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutANoneFunctionParams(ANoneFunctionParams node)
+    public virtual void OutANoneFunctionArguments(ANoneFunctionArguments node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseANoneFunctionParams(ANoneFunctionParams node)
+    public override void CaseANoneFunctionArguments(ANoneFunctionArguments node)
     {
-        InANoneFunctionParams(node);
-        OutANoneFunctionParams(node);
+        InANoneFunctionArguments(node);
+        OutANoneFunctionArguments(node);
     }
-    public virtual void InADecArguements(ADecArguements node)
+    public virtual void InADecArguement(ADecArguement node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutADecArguements(ADecArguements node)
+    public virtual void OutADecArguement(ADecArguement node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseADecArguements(ADecArguements node)
+    public override void CaseADecArguement(ADecArguement node)
     {
-        InADecArguements(node);
+        InADecArguement(node);
         if(node.GetVarname() != null)
         {
             node.GetVarname().Apply(this);
@@ -2561,64 +2609,7 @@ public class ReversedDepthFirstAdapter : AnalysisAdapter
         {
             node.GetType().Apply(this);
         }
-        OutADecArguements(node);
-    }
-    public virtual void InAIntegerArguements(AIntegerArguements node)
-    {
-        DefaultIn(node);
-    }
-
-    public virtual void OutAIntegerArguements(AIntegerArguements node)
-    {
-        DefaultOut(node);
-    }
-
-    public override void CaseAIntegerArguements(AIntegerArguements node)
-    {
-        InAIntegerArguements(node);
-        if(node.GetNum() != null)
-        {
-            node.GetNum().Apply(this);
-        }
-        OutAIntegerArguements(node);
-    }
-    public virtual void InAFloatingPointArguements(AFloatingPointArguements node)
-    {
-        DefaultIn(node);
-    }
-
-    public virtual void OutAFloatingPointArguements(AFloatingPointArguements node)
-    {
-        DefaultOut(node);
-    }
-
-    public override void CaseAFloatingPointArguements(AFloatingPointArguements node)
-    {
-        InAFloatingPointArguements(node);
-        if(node.GetFp() != null)
-        {
-            node.GetFp().Apply(this);
-        }
-        OutAFloatingPointArguements(node);
-    }
-    public virtual void InAStringArguements(AStringArguements node)
-    {
-        DefaultIn(node);
-    }
-
-    public virtual void OutAStringArguements(AStringArguements node)
-    {
-        DefaultOut(node);
-    }
-
-    public override void CaseAStringArguements(AStringArguements node)
-    {
-        InAStringArguements(node);
-        if(node.GetS() != null)
-        {
-            node.GetS().Apply(this);
-        }
-        OutAStringArguements(node);
+        OutADecArguement(node);
     }
     public virtual void InAMainFunction(AMainFunction node)
     {
@@ -3137,9 +3128,9 @@ public class ReversedDepthFirstAdapter : AnalysisAdapter
         {
             node.GetCone().Apply(this);
         }
-        if(node.GetParameters() != null)
+        if(node.GetConditional() != null)
         {
-            node.GetParameters().Apply(this);
+            node.GetConditional().Apply(this);
         }
         if(node.GetOone() != null)
         {
@@ -3219,9 +3210,9 @@ public class ReversedDepthFirstAdapter : AnalysisAdapter
         {
             node.GetCone().Apply(this);
         }
-        if(node.GetParameters() != null)
+        if(node.GetConditional() != null)
         {
-            node.GetParameters().Apply(this);
+            node.GetConditional().Apply(this);
         }
         if(node.GetOone() != null)
         {
@@ -3233,24 +3224,119 @@ public class ReversedDepthFirstAdapter : AnalysisAdapter
         }
         OutAWhileState(node);
     }
-    public virtual void InAParameters(AParameters node)
+    public virtual void InAMultipleParameters(AMultipleParameters node)
     {
         DefaultIn(node);
     }
 
-    public virtual void OutAParameters(AParameters node)
+    public virtual void OutAMultipleParameters(AMultipleParameters node)
     {
         DefaultOut(node);
     }
 
-    public override void CaseAParameters(AParameters node)
+    public override void CaseAMultipleParameters(AMultipleParameters node)
     {
-        InAParameters(node);
+        InAMultipleParameters(node);
+        if(node.GetParameters() != null)
+        {
+            node.GetParameters().Apply(this);
+        }
+        if(node.GetComma() != null)
+        {
+            node.GetComma().Apply(this);
+        }
+        if(node.GetParameter() != null)
+        {
+            node.GetParameter().Apply(this);
+        }
+        OutAMultipleParameters(node);
+    }
+    public virtual void InASingleParameters(ASingleParameters node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutASingleParameters(ASingleParameters node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseASingleParameters(ASingleParameters node)
+    {
+        InASingleParameters(node);
+        if(node.GetParameter() != null)
+        {
+            node.GetParameter().Apply(this);
+        }
+        OutASingleParameters(node);
+    }
+    public virtual void InANoParameterParameters(ANoParameterParameters node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutANoParameterParameters(ANoParameterParameters node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseANoParameterParameters(ANoParameterParameters node)
+    {
+        InANoParameterParameters(node);
+        OutANoParameterParameters(node);
+    }
+    public virtual void InAParameter(AParameter node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutAParameter(AParameter node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseAParameter(AParameter node)
+    {
+        InAParameter(node);
         if(node.GetExpression() != null)
         {
             node.GetExpression().Apply(this);
         }
-        OutAParameters(node);
+        OutAParameter(node);
+    }
+    public virtual void InASingleConditional(ASingleConditional node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutASingleConditional(ASingleConditional node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseASingleConditional(ASingleConditional node)
+    {
+        InASingleConditional(node);
+        if(node.GetExpression() != null)
+        {
+            node.GetExpression().Apply(this);
+        }
+        OutASingleConditional(node);
+    }
+    public virtual void InANoConditionalConditional(ANoConditionalConditional node)
+    {
+        DefaultIn(node);
+    }
+
+    public virtual void OutANoConditionalConditional(ANoConditionalConditional node)
+    {
+        DefaultOut(node);
+    }
+
+    public override void CaseANoConditionalConditional(ANoConditionalConditional node)
+    {
+        InANoConditionalConditional(node);
+        OutANoConditionalConditional(node);
     }
     public virtual void InAOrExpression(AOrExpression node)
     {

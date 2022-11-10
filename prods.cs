@@ -28,11 +28,11 @@ public abstract class PFunction : Node
 {
 }
 
-public abstract class PFunctionParams : Node
+public abstract class PFunctionArguments : Node
 {
 }
 
-public abstract class PArguements : Node
+public abstract class PArguement : Node
 {
 }
 
@@ -89,6 +89,14 @@ public abstract class PWhileState : Node
 }
 
 public abstract class PParameters : Node
+{
+}
+
+public abstract class PParameter : Node
+{
+}
+
+public abstract class PConditional : Node
 {
 }
 
@@ -986,7 +994,7 @@ public sealed class AFunction : PFunction
     private TDefine _define_;
     private TId _id_;
     private TOpenp _oone_;
-    private PFunctionParams _function_params_;
+    private PFunctionArguments _function_arguments_;
     private TClosep _cone_;
     private TOpenp _otwo_;
     private PStatements _statements_;
@@ -1001,7 +1009,7 @@ public sealed class AFunction : PFunction
             TDefine _define_,
             TId _id_,
             TOpenp _oone_,
-            PFunctionParams _function_params_,
+            PFunctionArguments _function_arguments_,
             TClosep _cone_,
             TOpenp _otwo_,
             PStatements _statements_,
@@ -1012,7 +1020,7 @@ public sealed class AFunction : PFunction
         SetDefine (_define_);
         SetId (_id_);
         SetOone (_oone_);
-        SetFunctionParams (_function_params_);
+        SetFunctionArguments (_function_arguments_);
         SetCone (_cone_);
         SetOtwo (_otwo_);
         SetStatements (_statements_);
@@ -1026,7 +1034,7 @@ public sealed class AFunction : PFunction
             (TDefine)CloneNode (_define_),
             (TId)CloneNode (_id_),
             (TOpenp)CloneNode (_oone_),
-            (PFunctionParams)CloneNode (_function_params_),
+            (PFunctionArguments)CloneNode (_function_arguments_),
             (TClosep)CloneNode (_cone_),
             (TOpenp)CloneNode (_otwo_),
             (PStatements)CloneNode (_statements_),
@@ -1112,16 +1120,16 @@ public sealed class AFunction : PFunction
 
         _oone_ = node;
     }
-    public PFunctionParams GetFunctionParams ()
+    public PFunctionArguments GetFunctionArguments ()
     {
-        return _function_params_;
+        return _function_arguments_;
     }
 
-    public void SetFunctionParams (PFunctionParams node)
+    public void SetFunctionArguments (PFunctionArguments node)
     {
-        if(_function_params_ != null)
+        if(_function_arguments_ != null)
         {
-            _function_params_.Parent(null);
+            _function_arguments_.Parent(null);
         }
 
         if(node != null)
@@ -1134,7 +1142,7 @@ public sealed class AFunction : PFunction
             node.Parent(this);
         }
 
-        _function_params_ = node;
+        _function_arguments_ = node;
     }
     public TClosep GetCone ()
     {
@@ -1263,7 +1271,7 @@ public sealed class AFunction : PFunction
             + ToString (_define_)
             + ToString (_id_)
             + ToString (_oone_)
-            + ToString (_function_params_)
+            + ToString (_function_arguments_)
             + ToString (_cone_)
             + ToString (_otwo_)
             + ToString (_statements_)
@@ -1289,9 +1297,9 @@ public sealed class AFunction : PFunction
             _oone_ = null;
             return;
         }
-        if ( _function_params_ == child )
+        if ( _function_arguments_ == child )
         {
-            _function_params_ = null;
+            _function_arguments_ = null;
             return;
         }
         if ( _cone_ == child )
@@ -1338,9 +1346,9 @@ public sealed class AFunction : PFunction
             SetOone ((TOpenp) newChild);
             return;
         }
-        if ( _function_params_ == oldChild )
+        if ( _function_arguments_ == oldChild )
         {
-            SetFunctionParams ((PFunctionParams) newChild);
+            SetFunctionArguments ((PFunctionArguments) newChild);
             return;
         }
         if ( _cone_ == oldChild )
@@ -1371,51 +1379,51 @@ public sealed class AFunction : PFunction
     }
 
 }
-public sealed class AMultipleFunctionParams : PFunctionParams
+public sealed class AMultipleFunctionArguments : PFunctionArguments
 {
-    private PArguements _arguements_;
+    private PArguement _arguement_;
     private TComma _comma_;
-    private PFunctionParams _function_params_;
+    private PFunctionArguments _function_arguments_;
 
-    public AMultipleFunctionParams ()
+    public AMultipleFunctionArguments ()
     {
     }
 
-    public AMultipleFunctionParams (
-            PArguements _arguements_,
+    public AMultipleFunctionArguments (
+            PArguement _arguement_,
             TComma _comma_,
-            PFunctionParams _function_params_
+            PFunctionArguments _function_arguments_
     )
     {
-        SetArguements (_arguements_);
+        SetArguement (_arguement_);
         SetComma (_comma_);
-        SetFunctionParams (_function_params_);
+        SetFunctionArguments (_function_arguments_);
     }
 
     public override Object Clone()
     {
-        return new AMultipleFunctionParams (
-            (PArguements)CloneNode (_arguements_),
+        return new AMultipleFunctionArguments (
+            (PArguement)CloneNode (_arguement_),
             (TComma)CloneNode (_comma_),
-            (PFunctionParams)CloneNode (_function_params_)
+            (PFunctionArguments)CloneNode (_function_arguments_)
         );
     }
 
     public override void Apply(Switch sw)
     {
-        ((Analysis) sw).CaseAMultipleFunctionParams(this);
+        ((Analysis) sw).CaseAMultipleFunctionArguments(this);
     }
 
-    public PArguements GetArguements ()
+    public PArguement GetArguement ()
     {
-        return _arguements_;
+        return _arguement_;
     }
 
-    public void SetArguements (PArguements node)
+    public void SetArguement (PArguement node)
     {
-        if(_arguements_ != null)
+        if(_arguement_ != null)
         {
-            _arguements_.Parent(null);
+            _arguement_.Parent(null);
         }
 
         if(node != null)
@@ -1428,7 +1436,7 @@ public sealed class AMultipleFunctionParams : PFunctionParams
             node.Parent(this);
         }
 
-        _arguements_ = node;
+        _arguement_ = node;
     }
     public TComma GetComma ()
     {
@@ -1454,16 +1462,16 @@ public sealed class AMultipleFunctionParams : PFunctionParams
 
         _comma_ = node;
     }
-    public PFunctionParams GetFunctionParams ()
+    public PFunctionArguments GetFunctionArguments ()
     {
-        return _function_params_;
+        return _function_arguments_;
     }
 
-    public void SetFunctionParams (PFunctionParams node)
+    public void SetFunctionArguments (PFunctionArguments node)
     {
-        if(_function_params_ != null)
+        if(_function_arguments_ != null)
         {
-            _function_params_.Parent(null);
+            _function_arguments_.Parent(null);
         }
 
         if(node != null)
@@ -1476,23 +1484,23 @@ public sealed class AMultipleFunctionParams : PFunctionParams
             node.Parent(this);
         }
 
-        _function_params_ = node;
+        _function_arguments_ = node;
     }
 
     public override string ToString()
     {
         return ""
-            + ToString (_arguements_)
+            + ToString (_arguement_)
             + ToString (_comma_)
-            + ToString (_function_params_)
+            + ToString (_function_arguments_)
         ;
     }
 
     internal override void RemoveChild(Node child)
     {
-        if ( _arguements_ == child )
+        if ( _arguement_ == child )
         {
-            _arguements_ = null;
+            _arguement_ = null;
             return;
         }
         if ( _comma_ == child )
@@ -1500,18 +1508,18 @@ public sealed class AMultipleFunctionParams : PFunctionParams
             _comma_ = null;
             return;
         }
-        if ( _function_params_ == child )
+        if ( _function_arguments_ == child )
         {
-            _function_params_ = null;
+            _function_arguments_ = null;
             return;
         }
     }
 
     internal override void ReplaceChild(Node oldChild, Node newChild)
     {
-        if ( _arguements_ == oldChild )
+        if ( _arguement_ == oldChild )
         {
-            SetArguements ((PArguements) newChild);
+            SetArguement ((PArguement) newChild);
             return;
         }
         if ( _comma_ == oldChild )
@@ -1519,51 +1527,51 @@ public sealed class AMultipleFunctionParams : PFunctionParams
             SetComma ((TComma) newChild);
             return;
         }
-        if ( _function_params_ == oldChild )
+        if ( _function_arguments_ == oldChild )
         {
-            SetFunctionParams ((PFunctionParams) newChild);
+            SetFunctionArguments ((PFunctionArguments) newChild);
             return;
         }
     }
 
 }
-public sealed class ASingleFunctionParams : PFunctionParams
+public sealed class ASingleFunctionArguments : PFunctionArguments
 {
-    private PArguements _arguements_;
+    private PArguement _arguement_;
 
-    public ASingleFunctionParams ()
+    public ASingleFunctionArguments ()
     {
     }
 
-    public ASingleFunctionParams (
-            PArguements _arguements_
+    public ASingleFunctionArguments (
+            PArguement _arguement_
     )
     {
-        SetArguements (_arguements_);
+        SetArguement (_arguement_);
     }
 
     public override Object Clone()
     {
-        return new ASingleFunctionParams (
-            (PArguements)CloneNode (_arguements_)
+        return new ASingleFunctionArguments (
+            (PArguement)CloneNode (_arguement_)
         );
     }
 
     public override void Apply(Switch sw)
     {
-        ((Analysis) sw).CaseASingleFunctionParams(this);
+        ((Analysis) sw).CaseASingleFunctionArguments(this);
     }
 
-    public PArguements GetArguements ()
+    public PArguement GetArguement ()
     {
-        return _arguements_;
+        return _arguement_;
     }
 
-    public void SetArguements (PArguements node)
+    public void SetArguement (PArguement node)
     {
-        if(_arguements_ != null)
+        if(_arguement_ != null)
         {
-            _arguements_.Parent(null);
+            _arguement_.Parent(null);
         }
 
         if(node != null)
@@ -1576,53 +1584,53 @@ public sealed class ASingleFunctionParams : PFunctionParams
             node.Parent(this);
         }
 
-        _arguements_ = node;
+        _arguement_ = node;
     }
 
     public override string ToString()
     {
         return ""
-            + ToString (_arguements_)
+            + ToString (_arguement_)
         ;
     }
 
     internal override void RemoveChild(Node child)
     {
-        if ( _arguements_ == child )
+        if ( _arguement_ == child )
         {
-            _arguements_ = null;
+            _arguement_ = null;
             return;
         }
     }
 
     internal override void ReplaceChild(Node oldChild, Node newChild)
     {
-        if ( _arguements_ == oldChild )
+        if ( _arguement_ == oldChild )
         {
-            SetArguements ((PArguements) newChild);
+            SetArguement ((PArguement) newChild);
             return;
         }
     }
 
 }
-public sealed class ANoneFunctionParams : PFunctionParams
+public sealed class ANoneFunctionArguments : PFunctionArguments
 {
 
 
-    public ANoneFunctionParams (
+    public ANoneFunctionArguments (
     )
     {
     }
 
     public override Object Clone()
     {
-        return new ANoneFunctionParams (
+        return new ANoneFunctionArguments (
         );
     }
 
     public override void Apply(Switch sw)
     {
-        ((Analysis) sw).CaseANoneFunctionParams(this);
+        ((Analysis) sw).CaseANoneFunctionArguments(this);
     }
 
 
@@ -1641,16 +1649,16 @@ public sealed class ANoneFunctionParams : PFunctionParams
     }
 
 }
-public sealed class ADecArguements : PArguements
+public sealed class ADecArguement : PArguement
 {
     private TId _type_;
     private TId _varname_;
 
-    public ADecArguements ()
+    public ADecArguement ()
     {
     }
 
-    public ADecArguements (
+    public ADecArguement (
             TId _type_,
             TId _varname_
     )
@@ -1661,7 +1669,7 @@ public sealed class ADecArguements : PArguements
 
     public override Object Clone()
     {
-        return new ADecArguements (
+        return new ADecArguement (
             (TId)CloneNode (_type_),
             (TId)CloneNode (_varname_)
         );
@@ -1669,7 +1677,7 @@ public sealed class ADecArguements : PArguements
 
     public override void Apply(Switch sw)
     {
-        ((Analysis) sw).CaseADecArguements(this);
+        ((Analysis) sw).CaseADecArguement(this);
     }
 
     public TId GetType ()
@@ -1753,240 +1761,6 @@ public sealed class ADecArguements : PArguements
         if ( _varname_ == oldChild )
         {
             SetVarname ((TId) newChild);
-            return;
-        }
-    }
-
-}
-public sealed class AIntegerArguements : PArguements
-{
-    private TNum _num_;
-
-    public AIntegerArguements ()
-    {
-    }
-
-    public AIntegerArguements (
-            TNum _num_
-    )
-    {
-        SetNum (_num_);
-    }
-
-    public override Object Clone()
-    {
-        return new AIntegerArguements (
-            (TNum)CloneNode (_num_)
-        );
-    }
-
-    public override void Apply(Switch sw)
-    {
-        ((Analysis) sw).CaseAIntegerArguements(this);
-    }
-
-    public TNum GetNum ()
-    {
-        return _num_;
-    }
-
-    public void SetNum (TNum node)
-    {
-        if(_num_ != null)
-        {
-            _num_.Parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.Parent() != null)
-            {
-                node.Parent().RemoveChild(node);
-            }
-
-            node.Parent(this);
-        }
-
-        _num_ = node;
-    }
-
-    public override string ToString()
-    {
-        return ""
-            + ToString (_num_)
-        ;
-    }
-
-    internal override void RemoveChild(Node child)
-    {
-        if ( _num_ == child )
-        {
-            _num_ = null;
-            return;
-        }
-    }
-
-    internal override void ReplaceChild(Node oldChild, Node newChild)
-    {
-        if ( _num_ == oldChild )
-        {
-            SetNum ((TNum) newChild);
-            return;
-        }
-    }
-
-}
-public sealed class AFloatingPointArguements : PArguements
-{
-    private TFp _fp_;
-
-    public AFloatingPointArguements ()
-    {
-    }
-
-    public AFloatingPointArguements (
-            TFp _fp_
-    )
-    {
-        SetFp (_fp_);
-    }
-
-    public override Object Clone()
-    {
-        return new AFloatingPointArguements (
-            (TFp)CloneNode (_fp_)
-        );
-    }
-
-    public override void Apply(Switch sw)
-    {
-        ((Analysis) sw).CaseAFloatingPointArguements(this);
-    }
-
-    public TFp GetFp ()
-    {
-        return _fp_;
-    }
-
-    public void SetFp (TFp node)
-    {
-        if(_fp_ != null)
-        {
-            _fp_.Parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.Parent() != null)
-            {
-                node.Parent().RemoveChild(node);
-            }
-
-            node.Parent(this);
-        }
-
-        _fp_ = node;
-    }
-
-    public override string ToString()
-    {
-        return ""
-            + ToString (_fp_)
-        ;
-    }
-
-    internal override void RemoveChild(Node child)
-    {
-        if ( _fp_ == child )
-        {
-            _fp_ = null;
-            return;
-        }
-    }
-
-    internal override void ReplaceChild(Node oldChild, Node newChild)
-    {
-        if ( _fp_ == oldChild )
-        {
-            SetFp ((TFp) newChild);
-            return;
-        }
-    }
-
-}
-public sealed class AStringArguements : PArguements
-{
-    private TS _s_;
-
-    public AStringArguements ()
-    {
-    }
-
-    public AStringArguements (
-            TS _s_
-    )
-    {
-        SetS (_s_);
-    }
-
-    public override Object Clone()
-    {
-        return new AStringArguements (
-            (TS)CloneNode (_s_)
-        );
-    }
-
-    public override void Apply(Switch sw)
-    {
-        ((Analysis) sw).CaseAStringArguements(this);
-    }
-
-    public TS GetS ()
-    {
-        return _s_;
-    }
-
-    public void SetS (TS node)
-    {
-        if(_s_ != null)
-        {
-            _s_.Parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.Parent() != null)
-            {
-                node.Parent().RemoveChild(node);
-            }
-
-            node.Parent(this);
-        }
-
-        _s_ = node;
-    }
-
-    public override string ToString()
-    {
-        return ""
-            + ToString (_s_)
-        ;
-    }
-
-    internal override void RemoveChild(Node child)
-    {
-        if ( _s_ == child )
-        {
-            _s_ = null;
-            return;
-        }
-    }
-
-    internal override void ReplaceChild(Node oldChild, Node newChild)
-    {
-        if ( _s_ == oldChild )
-        {
-            SetS ((TS) newChild);
             return;
         }
     }
@@ -4567,7 +4341,7 @@ public sealed class AIfState : PIfState
 {
     private TIf _if_;
     private TOpenp _oone_;
-    private PParameters _parameters_;
+    private PConditional _conditional_;
     private TClosep _cone_;
     private TOpenp _otwo_;
     private PStatements _statements_;
@@ -4581,7 +4355,7 @@ public sealed class AIfState : PIfState
     public AIfState (
             TIf _if_,
             TOpenp _oone_,
-            PParameters _parameters_,
+            PConditional _conditional_,
             TClosep _cone_,
             TOpenp _otwo_,
             PStatements _statements_,
@@ -4591,7 +4365,7 @@ public sealed class AIfState : PIfState
     {
         SetIf (_if_);
         SetOone (_oone_);
-        SetParameters (_parameters_);
+        SetConditional (_conditional_);
         SetCone (_cone_);
         SetOtwo (_otwo_);
         SetStatements (_statements_);
@@ -4604,7 +4378,7 @@ public sealed class AIfState : PIfState
         return new AIfState (
             (TIf)CloneNode (_if_),
             (TOpenp)CloneNode (_oone_),
-            (PParameters)CloneNode (_parameters_),
+            (PConditional)CloneNode (_conditional_),
             (TClosep)CloneNode (_cone_),
             (TOpenp)CloneNode (_otwo_),
             (PStatements)CloneNode (_statements_),
@@ -4666,16 +4440,16 @@ public sealed class AIfState : PIfState
 
         _oone_ = node;
     }
-    public PParameters GetParameters ()
+    public PConditional GetConditional ()
     {
-        return _parameters_;
+        return _conditional_;
     }
 
-    public void SetParameters (PParameters node)
+    public void SetConditional (PConditional node)
     {
-        if(_parameters_ != null)
+        if(_conditional_ != null)
         {
-            _parameters_.Parent(null);
+            _conditional_.Parent(null);
         }
 
         if(node != null)
@@ -4688,7 +4462,7 @@ public sealed class AIfState : PIfState
             node.Parent(this);
         }
 
-        _parameters_ = node;
+        _conditional_ = node;
     }
     public TClosep GetCone ()
     {
@@ -4816,7 +4590,7 @@ public sealed class AIfState : PIfState
         return ""
             + ToString (_if_)
             + ToString (_oone_)
-            + ToString (_parameters_)
+            + ToString (_conditional_)
             + ToString (_cone_)
             + ToString (_otwo_)
             + ToString (_statements_)
@@ -4837,9 +4611,9 @@ public sealed class AIfState : PIfState
             _oone_ = null;
             return;
         }
-        if ( _parameters_ == child )
+        if ( _conditional_ == child )
         {
-            _parameters_ = null;
+            _conditional_ = null;
             return;
         }
         if ( _cone_ == child )
@@ -4881,9 +4655,9 @@ public sealed class AIfState : PIfState
             SetOone ((TOpenp) newChild);
             return;
         }
-        if ( _parameters_ == oldChild )
+        if ( _conditional_ == oldChild )
         {
-            SetParameters ((PParameters) newChild);
+            SetConditional ((PConditional) newChild);
             return;
         }
         if ( _cone_ == oldChild )
@@ -5152,7 +4926,7 @@ public sealed class AWhileState : PWhileState
 {
     private TWhile _while_;
     private TOpenp _oone_;
-    private PParameters _parameters_;
+    private PConditional _conditional_;
     private TClosep _cone_;
     private TOpenp _otwo_;
     private PStatements _statements_;
@@ -5166,7 +4940,7 @@ public sealed class AWhileState : PWhileState
     public AWhileState (
             TWhile _while_,
             TOpenp _oone_,
-            PParameters _parameters_,
+            PConditional _conditional_,
             TClosep _cone_,
             TOpenp _otwo_,
             PStatements _statements_,
@@ -5176,7 +4950,7 @@ public sealed class AWhileState : PWhileState
     {
         SetWhile (_while_);
         SetOone (_oone_);
-        SetParameters (_parameters_);
+        SetConditional (_conditional_);
         SetCone (_cone_);
         SetOtwo (_otwo_);
         SetStatements (_statements_);
@@ -5189,7 +4963,7 @@ public sealed class AWhileState : PWhileState
         return new AWhileState (
             (TWhile)CloneNode (_while_),
             (TOpenp)CloneNode (_oone_),
-            (PParameters)CloneNode (_parameters_),
+            (PConditional)CloneNode (_conditional_),
             (TClosep)CloneNode (_cone_),
             (TOpenp)CloneNode (_otwo_),
             (PStatements)CloneNode (_statements_),
@@ -5251,16 +5025,16 @@ public sealed class AWhileState : PWhileState
 
         _oone_ = node;
     }
-    public PParameters GetParameters ()
+    public PConditional GetConditional ()
     {
-        return _parameters_;
+        return _conditional_;
     }
 
-    public void SetParameters (PParameters node)
+    public void SetConditional (PConditional node)
     {
-        if(_parameters_ != null)
+        if(_conditional_ != null)
         {
-            _parameters_.Parent(null);
+            _conditional_.Parent(null);
         }
 
         if(node != null)
@@ -5273,7 +5047,7 @@ public sealed class AWhileState : PWhileState
             node.Parent(this);
         }
 
-        _parameters_ = node;
+        _conditional_ = node;
     }
     public TClosep GetCone ()
     {
@@ -5401,7 +5175,7 @@ public sealed class AWhileState : PWhileState
         return ""
             + ToString (_while_)
             + ToString (_oone_)
-            + ToString (_parameters_)
+            + ToString (_conditional_)
             + ToString (_cone_)
             + ToString (_otwo_)
             + ToString (_statements_)
@@ -5422,9 +5196,9 @@ public sealed class AWhileState : PWhileState
             _oone_ = null;
             return;
         }
-        if ( _parameters_ == child )
+        if ( _conditional_ == child )
         {
-            _parameters_ = null;
+            _conditional_ = null;
             return;
         }
         if ( _cone_ == child )
@@ -5466,9 +5240,9 @@ public sealed class AWhileState : PWhileState
             SetOone ((TOpenp) newChild);
             return;
         }
-        if ( _parameters_ == oldChild )
+        if ( _conditional_ == oldChild )
         {
-            SetParameters ((PParameters) newChild);
+            SetConditional ((PConditional) newChild);
             return;
         }
         if ( _cone_ == oldChild )
@@ -5499,15 +5273,285 @@ public sealed class AWhileState : PWhileState
     }
 
 }
-public sealed class AParameters : PParameters
+public sealed class AMultipleParameters : PParameters
 {
-    private PExpression _expression_;
+    private PParameter _parameter_;
+    private TComma _comma_;
+    private PParameters _parameters_;
 
-    public AParameters ()
+    public AMultipleParameters ()
     {
     }
 
-    public AParameters (
+    public AMultipleParameters (
+            PParameter _parameter_,
+            TComma _comma_,
+            PParameters _parameters_
+    )
+    {
+        SetParameter (_parameter_);
+        SetComma (_comma_);
+        SetParameters (_parameters_);
+    }
+
+    public override Object Clone()
+    {
+        return new AMultipleParameters (
+            (PParameter)CloneNode (_parameter_),
+            (TComma)CloneNode (_comma_),
+            (PParameters)CloneNode (_parameters_)
+        );
+    }
+
+    public override void Apply(Switch sw)
+    {
+        ((Analysis) sw).CaseAMultipleParameters(this);
+    }
+
+    public PParameter GetParameter ()
+    {
+        return _parameter_;
+    }
+
+    public void SetParameter (PParameter node)
+    {
+        if(_parameter_ != null)
+        {
+            _parameter_.Parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.Parent() != null)
+            {
+                node.Parent().RemoveChild(node);
+            }
+
+            node.Parent(this);
+        }
+
+        _parameter_ = node;
+    }
+    public TComma GetComma ()
+    {
+        return _comma_;
+    }
+
+    public void SetComma (TComma node)
+    {
+        if(_comma_ != null)
+        {
+            _comma_.Parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.Parent() != null)
+            {
+                node.Parent().RemoveChild(node);
+            }
+
+            node.Parent(this);
+        }
+
+        _comma_ = node;
+    }
+    public PParameters GetParameters ()
+    {
+        return _parameters_;
+    }
+
+    public void SetParameters (PParameters node)
+    {
+        if(_parameters_ != null)
+        {
+            _parameters_.Parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.Parent() != null)
+            {
+                node.Parent().RemoveChild(node);
+            }
+
+            node.Parent(this);
+        }
+
+        _parameters_ = node;
+    }
+
+    public override string ToString()
+    {
+        return ""
+            + ToString (_parameter_)
+            + ToString (_comma_)
+            + ToString (_parameters_)
+        ;
+    }
+
+    internal override void RemoveChild(Node child)
+    {
+        if ( _parameter_ == child )
+        {
+            _parameter_ = null;
+            return;
+        }
+        if ( _comma_ == child )
+        {
+            _comma_ = null;
+            return;
+        }
+        if ( _parameters_ == child )
+        {
+            _parameters_ = null;
+            return;
+        }
+    }
+
+    internal override void ReplaceChild(Node oldChild, Node newChild)
+    {
+        if ( _parameter_ == oldChild )
+        {
+            SetParameter ((PParameter) newChild);
+            return;
+        }
+        if ( _comma_ == oldChild )
+        {
+            SetComma ((TComma) newChild);
+            return;
+        }
+        if ( _parameters_ == oldChild )
+        {
+            SetParameters ((PParameters) newChild);
+            return;
+        }
+    }
+
+}
+public sealed class ASingleParameters : PParameters
+{
+    private PParameter _parameter_;
+
+    public ASingleParameters ()
+    {
+    }
+
+    public ASingleParameters (
+            PParameter _parameter_
+    )
+    {
+        SetParameter (_parameter_);
+    }
+
+    public override Object Clone()
+    {
+        return new ASingleParameters (
+            (PParameter)CloneNode (_parameter_)
+        );
+    }
+
+    public override void Apply(Switch sw)
+    {
+        ((Analysis) sw).CaseASingleParameters(this);
+    }
+
+    public PParameter GetParameter ()
+    {
+        return _parameter_;
+    }
+
+    public void SetParameter (PParameter node)
+    {
+        if(_parameter_ != null)
+        {
+            _parameter_.Parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.Parent() != null)
+            {
+                node.Parent().RemoveChild(node);
+            }
+
+            node.Parent(this);
+        }
+
+        _parameter_ = node;
+    }
+
+    public override string ToString()
+    {
+        return ""
+            + ToString (_parameter_)
+        ;
+    }
+
+    internal override void RemoveChild(Node child)
+    {
+        if ( _parameter_ == child )
+        {
+            _parameter_ = null;
+            return;
+        }
+    }
+
+    internal override void ReplaceChild(Node oldChild, Node newChild)
+    {
+        if ( _parameter_ == oldChild )
+        {
+            SetParameter ((PParameter) newChild);
+            return;
+        }
+    }
+
+}
+public sealed class ANoParameterParameters : PParameters
+{
+
+
+    public ANoParameterParameters (
+    )
+    {
+    }
+
+    public override Object Clone()
+    {
+        return new ANoParameterParameters (
+        );
+    }
+
+    public override void Apply(Switch sw)
+    {
+        ((Analysis) sw).CaseANoParameterParameters(this);
+    }
+
+
+    public override string ToString()
+    {
+        return ""
+        ;
+    }
+
+    internal override void RemoveChild(Node child)
+    {
+    }
+
+    internal override void ReplaceChild(Node oldChild, Node newChild)
+    {
+    }
+
+}
+public sealed class AParameter : PParameter
+{
+    private PExpression _expression_;
+
+    public AParameter ()
+    {
+    }
+
+    public AParameter (
             PExpression _expression_
     )
     {
@@ -5516,14 +5560,14 @@ public sealed class AParameters : PParameters
 
     public override Object Clone()
     {
-        return new AParameters (
+        return new AParameter (
             (PExpression)CloneNode (_expression_)
         );
     }
 
     public override void Apply(Switch sw)
     {
-        ((Analysis) sw).CaseAParameters(this);
+        ((Analysis) sw).CaseAParameter(this);
     }
 
     public PExpression GetExpression ()
@@ -5574,6 +5618,120 @@ public sealed class AParameters : PParameters
             SetExpression ((PExpression) newChild);
             return;
         }
+    }
+
+}
+public sealed class ASingleConditional : PConditional
+{
+    private PExpression _expression_;
+
+    public ASingleConditional ()
+    {
+    }
+
+    public ASingleConditional (
+            PExpression _expression_
+    )
+    {
+        SetExpression (_expression_);
+    }
+
+    public override Object Clone()
+    {
+        return new ASingleConditional (
+            (PExpression)CloneNode (_expression_)
+        );
+    }
+
+    public override void Apply(Switch sw)
+    {
+        ((Analysis) sw).CaseASingleConditional(this);
+    }
+
+    public PExpression GetExpression ()
+    {
+        return _expression_;
+    }
+
+    public void SetExpression (PExpression node)
+    {
+        if(_expression_ != null)
+        {
+            _expression_.Parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.Parent() != null)
+            {
+                node.Parent().RemoveChild(node);
+            }
+
+            node.Parent(this);
+        }
+
+        _expression_ = node;
+    }
+
+    public override string ToString()
+    {
+        return ""
+            + ToString (_expression_)
+        ;
+    }
+
+    internal override void RemoveChild(Node child)
+    {
+        if ( _expression_ == child )
+        {
+            _expression_ = null;
+            return;
+        }
+    }
+
+    internal override void ReplaceChild(Node oldChild, Node newChild)
+    {
+        if ( _expression_ == oldChild )
+        {
+            SetExpression ((PExpression) newChild);
+            return;
+        }
+    }
+
+}
+public sealed class ANoConditionalConditional : PConditional
+{
+
+
+    public ANoConditionalConditional (
+    )
+    {
+    }
+
+    public override Object Clone()
+    {
+        return new ANoConditionalConditional (
+        );
+    }
+
+    public override void Apply(Switch sw)
+    {
+        ((Analysis) sw).CaseANoConditionalConditional(this);
+    }
+
+
+    public override string ToString()
+    {
+        return ""
+        ;
+    }
+
+    internal override void RemoveChild(Node child)
+    {
+    }
+
+    internal override void ReplaceChild(Node oldChild, Node newChild)
+    {
     }
 
 }
